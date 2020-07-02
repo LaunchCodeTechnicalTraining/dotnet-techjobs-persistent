@@ -24,15 +24,15 @@ namespace TechJobsPersistent.Controllers
             List<Job> jobs;
             if (column.ToLower().Equals("all"))
             {
-                jobs = JobDbContext.FindAll();
-                ViewBag.title = "All Jobs";
+                // jobs = JobDbContext.FindAll();
+                // ViewBag.title = "All Jobs";
             }
             else
             {
-                jobs = JobDbContext.FindByColumnAndValue(column, value);
-                ViewBag.title = "Jobs with " + ColumnChoices[column] + ": " + value;
+                // jobs = JobDbContext.FindByColumnAndValue(column, value);
+                // ViewBag.title = "Jobs with " + ColumnChoices[column] + ": " + value;
             }
-            ViewBag.jobs = jobs;
+            // ViewBag.jobs = jobs;
 
             return View();
         }

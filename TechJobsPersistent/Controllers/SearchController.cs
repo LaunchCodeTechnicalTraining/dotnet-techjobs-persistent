@@ -15,7 +15,7 @@ namespace TechJobsPersistent.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            ViewBag.columns = ListController.ColumnChoices;
+            // ViewBag.columns = ListController.ColumnChoices;
             return View();
         }
 
@@ -24,15 +24,15 @@ namespace TechJobsPersistent.Controllers
             List<Job> jobs;
             if (string.IsNullOrEmpty(searchTerm))
             {
-                jobs = JobDbContext.FindAll();
+            //    jobs = JobDbContext.FindAll();
             }
             else
             {
-                jobs = JobDbContext.FindByColumnAndValue(searchType, searchTerm);
+            //    jobs = JobDbContext.FindByColumnAndValue(searchType, searchTerm);
             }
-            ViewBag.columns = ListController.ColumnChoices;
-            ViewBag.title = "Jobs with " + ListController.ColumnChoices[searchType] + ": " + searchTerm;
-            ViewBag.jobs = jobs;
+           // ViewBag.columns = ListController.ColumnChoices;
+            //ViewBag.title = "Jobs with " + ListController.ColumnChoices[searchType] + ": " + searchTerm;
+            //ViewBag.jobs = jobs;
 
 
             return View("Index");
