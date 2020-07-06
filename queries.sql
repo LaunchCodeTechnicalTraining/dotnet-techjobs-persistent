@@ -9,6 +9,6 @@ DROP TABLE Jobs;
 
 --Part 4
 SELECT * FROM Skills
-      LEFT JOIN JobSkills ON Skill.id = JobSkills.SkillId
+      LEFT JOIN JobSkills ON Skill.Id = JobSkills.SkillId
       WHERE JobSkills.JobId IS NOT NULL
       ORDER BY name ASC;
