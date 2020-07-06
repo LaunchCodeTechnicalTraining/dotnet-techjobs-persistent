@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TechJobsPersistent.Models;
 using TechJobsPersistent.Data;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,6 +13,13 @@ namespace TechJobsPersistent.Controllers
 {
     public class ListController : Controller
     {
+        private JobDbContext context;
+
+        public ListController(JobDbContext dbContext)
+        {
+            context = dbContext;
+        }
+
         // GET: /<controller>/
         public IActionResult Index()
         {
@@ -24,12 +32,12 @@ namespace TechJobsPersistent.Controllers
             List<Job> jobs;
             if (column.ToLower().Equals("all"))
             {
-                // jobs = JobDbContext.FindAll();
-                // ViewBag.title = "All Jobs";
+                jobs = context.Jobs.Include(j => j.Employer).ToList();
+                ViewBag.title = "All Jobs";
             }
             else
             {
-                // jobs = JobDbContext.FindByColumnAndValue(column, value);
+                jobs = context
                 // ViewBag.title = "Jobs with " + ColumnChoices[column] + ": " + value;
             }
             // ViewBag.jobs = jobs;

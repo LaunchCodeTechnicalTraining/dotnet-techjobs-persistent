@@ -1,8 +1,19 @@
-﻿@model TechJobsPersistent.Models.Skill
+﻿@model List<TechJobsPersistent.Models.JobSkill>
 
-<h1>Skill: @Model.Name</h1>
+@if (Model.Count == 0)
+{
+    <h1>No jobs with the given skill!</h1>
+}
+else
+{
+    <h1>Jobs with the Skill: @Model[0].Skill.Name</h1>
+    <p>Skill Description: @Model[0].Skill.Description</p>
 
-<div>
-    <p>Name: @Model.Name</p>
-    <p>Description: @Model.Description</p>
-</div>
+    <ul>
+        @foreach (var jobSkill in Model)
+        {
+            <li>@jobSkill.Job.Name</li>
+        }
+    </ul>
+
+}

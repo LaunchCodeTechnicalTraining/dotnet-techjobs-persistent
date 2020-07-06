@@ -1,8 +1,8 @@
-﻿@model TechJobsPersistent.ViewModels.AddSkillViewModel
+﻿@model TechJobsPersistent.Models.Skill
 
 <h1>Add New Skill</h1>
 
-<form asp-controller="Skill" asp-action="ProcessAddSkillForm" method="post">
+<form asp-controller="Skill" asp-action="Add" method="post">
     <div class="form-group">
         <label asp-for="Name">Skill Name</label>
         <input asp-for="Name" />

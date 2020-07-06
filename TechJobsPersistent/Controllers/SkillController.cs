@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TechJobsPersistent.Data;
 using TechJobsPersistent.Models;
 using TechJobsPersistent.ViewModels;
@@ -24,41 +25,77 @@ namespace TechJobsPersistent.Controllers
         public IActionResult Index()
         {
             List<Skill> skills = context.Skills.ToList();
-
             return View(skills);
         }
 
         public IActionResult Add()
         {
-            AddSkillViewModel addSkillViewModel = new AddSkillViewModel();
-            return View(addSkillViewModel);
+            Skill skill = new Skill();
+            return View(skill);
         }
 
-        public IActionResult ProcessAddSkillForm(AddSkillViewModel addSkillViewModel)
+        [HttpPost]
+        public IActionResult Add(Skill skill)
         {
             if (ModelState.IsValid)
             {
-                Skill newSkill = new Skill
-                {
-                    Name = addSkillViewModel.Name,
-                    Description = addSkillViewModel.Description
-                };
-
-                context.Skills.Add(newSkill);
+                context.Skills.Add(skill);
                 context.SaveChanges();
-
-                return Redirect("/Skill");
+                return Redirect("/Skill/");
             }
 
-            return View("Add", addSkillViewModel);
+            return View("Add", skill);
         }
 
-        [HttpGet("Skill/About/{skillId?}")]
-        public IActionResult About(int skillId)
+        public IActionResult AddJob(int id)
         {
-            Skill skill = context.Skills.Find(skillId);
-
-            return View(skill);
+            Job theJob = context.Jobs.Find(id);
+            List<Skill> possibleSkills = context.Skills.ToList();
+            AddJobSkillViewModel viewModel = new AddJobSkillViewModel(theJob, possibleSkills);
+            return View(viewModel);
         }
+
+        [HttpPost]
+        public IActionResult AddJob(AddJobSkillViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+
+                int jobId = viewModel.JobId;
+                int skillId = viewModel.SkillId;
+
+                List<JobSkill> existingItems = context.JobSkills
+                    .Where(js => js.JobId == jobId)
+                    .Where(js => js.SkillId == skillId)
+                    .ToList();
+
+                if (existingItems.Count == 0)
+                {
+                    JobSkill jobSkill = new JobSkill
+                    {
+                        JobId = jobId,
+                        SkillId = skillId
+                    };
+                    context.JobSkills.Add(jobSkill);
+                    context.SaveChanges();
+                }
+
+                return Redirect("/Home/Detail/" + jobId);
+            }
+
+            return View(viewModel);
+        }
+
+        public IActionResult About(int id)
+        {
+            List<JobSkill> jobSkills = context.JobSkills
+                .Where(js => js.SkillId == id)
+                .Include(js => js.Job)
+                .Include(js => js.Skill)
+                .ToList();
+
+            return View(jobSkills);
+        }
+
     }
 }

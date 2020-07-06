@@ -13,7 +13,7 @@ namespace TechJobsPersistent.Models
 
         public int EmployerId { get; set; }
 
-        public List<Skill> Skills { get; set; }
+        public List<JobSkill> JobSkills { get; set; }
 
         public Job()
         {
