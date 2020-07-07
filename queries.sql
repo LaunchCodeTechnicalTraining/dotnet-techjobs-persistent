@@ -5,9 +5,6 @@
 SELECT Name FROM Employers WHERE Location = "St. Louis City";
 
 --Part 3
-DROP TABLE Jobs;
-
---Part 4
 SELECT * FROM Skills
       LEFT JOIN JobSkills ON Skill.Id = JobSkills.SkillId
       WHERE JobSkills.JobId IS NOT NULL
