@@ -76,9 +76,10 @@ namespace TechJobsPersistent.Controllers
                         JobId = jobId,
                         SkillId = skillId
                     };
+
                     context.JobSkills.Add(jobSkill);
                     context.SaveChanges();
-                }
+                 }
 
                 return Redirect("/Home/Detail/" + jobId);
             }

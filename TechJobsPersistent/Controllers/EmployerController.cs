@@ -55,10 +55,9 @@ namespace TechJobsPersistent.Controllers
             return View("Add", addEmployerViewModel);
         }
 
-        [HttpGet("Employer/About/{employerId?}")]
-        public IActionResult About(int employerId)
+        public IActionResult About(int id)
         {
-            Employer employer = context.Employers.Find(employerId);
+            Employer employer = context.Employers.Find(id);
 
             return View(employer);
         }
