@@ -1,3 +1,7 @@
+[Textbook Instructions](https://education.launchcode.org/csharp-web-development/assignments/tech-jobs-persistent.html)
+
+[Starter Code](https://github.com/LaunchCodeEducation/TechJobsPersistent)
+
 # C# Graded Assignment #4 Rubric (TechJobs, Persistent Edition)
 
 This assignment tests the students' understandings of SQL database management and the mechanics of object relational 
